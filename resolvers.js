@@ -3,6 +3,8 @@ const {
   Tag,
 } = require('./connectors');
 
+const {getBoundingTimestamps} = require('./utils');
+
 const activity = (_, args) => Activity.find({ where: args });
 
 const activities = (_, {
@@ -97,6 +99,24 @@ const totalTime = (_, args) => {
   })
 };
 
+const totalTimeForDays = (_, args) => {
+  // should return an array of totals.
+  const {howMany} = args;
+  const timestampArray = getBoundingTimestamps(howMany);
+
+  return Promise.all(timestampArray.map(([tsStart, tsEnd]) => {
+    return totalTime(null, {
+      tsStart,
+      tsEnd
+    });
+  })).then((vals) => {
+
+    return {
+      totals: vals.map((val) => val.total)
+    };
+  })
+};
+
 const resolvers = {
   Query: {
     activity,
@@ -104,6 +124,7 @@ const resolvers = {
     tag,
     tags,
     totalTime,
+    totalTimeForDays,
   },
 
   Mutation: {

@@ -16,12 +16,17 @@ const typeDefinitions = `
     total: String!
   }
 
+  type TimeTotalArray {
+    totals: [String]!
+  }
+
   type Query {
     activity(id: Int!): Activity
     activities(tsStart: String, tsEnd: String, tagId: Int): [Activity]
     tag(id: Int!): Tag
     tags: [Tag]
     totalTime(tsStart: String, tsEnd: String, tagId: Int): TimeTotal
+    totalTimeForDays(howMany: Int): TimeTotalArray
   }
 
   type Mutation {
