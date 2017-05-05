@@ -83,3 +83,24 @@ stuff you defined as the glue code (connector.js)
 # define the schema
 
 in `schema.js`, add your typeDefinitions
+
+
+---
+
+# 2017-05-05
+
+## 10:42
+
+you know what's a joy?
+being able to debug in vs code.
+
+i had to give up the async/await functions, but
+being able to know what's going on is much more important.
+
+
+## 11:01
+
+Figured out why my resolvers for collections (`activities`) weren't
+providing an iterable result: I was using `find` and not `findAll`
+
+Lesson: you should actually read the sequelize docs ;)

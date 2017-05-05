@@ -14,11 +14,19 @@ const {
   Tag,
 } = require('./connectors');
 
+
+const activity = (_, args) => Activity.find({ where: args});
+const activities = (_, args) => Activity.findAll({});
+const tag = (_, args) => Tag.find({ where: args});
+const tags = (_, args) => Tag.findAll({});
+
+
 const resolvers = {
   Query: {
-    activity(_, args) {
-      return Activity.find({ where: args});
-    }
+    activity,
+    activities,
+    tag,
+    tags
   },
   Activity: {
     tags(activity) {

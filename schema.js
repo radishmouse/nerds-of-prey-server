@@ -16,21 +16,23 @@
 
 const typeDefinitions = `
   type Activity {
-    id: Int
-    tsStart: String
-    tsEnd: String
+    id: Int!
+    tsStart: String!
+    tsEnd: String!
     tags: [Tag]
   }
 
   type Tag {
-    id: Int
-    name: String
+    id: Int!
+    name: String!
     activities: [Activity]
   }
 
   type Query {
-    activity(id: Int): Activity
-    tag(id: Int): Tag
+    activities: [Activity]
+    activity(id: Int!): Activity
+    tags: [Tag]
+    tag(id: Int!): Tag
   }
 
   schema {
