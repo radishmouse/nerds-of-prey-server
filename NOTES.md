@@ -104,3 +104,40 @@ Figured out why my resolvers for collections (`activities`) weren't
 providing an iterable result: I was using `find` and not `findAll`
 
 Lesson: you should actually read the sequelize docs ;)
+
+
+### querying for all tags
+
+(only including the ids of activities)
+
+```
+{
+	tags{
+    id
+		name
+    activities{
+      id
+    }
+  }
+}
+```
+
+## 11:10 - writing the first mutation
+
+Pattern:
+- in schema.js
+  - define the type
+  - include in the schema declaration
+- in resolvers.js
+  - define a resolver function
+  - add to the Mutation object
+
+Here's the query.
+
+```
+mutation {
+  addActivity(tsStart:"100", tsEnd:"200") {
+    id
+  }
+}
+```

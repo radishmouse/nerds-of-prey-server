@@ -35,8 +35,21 @@ const typeDefinitions = `
     tag(id: Int!): Tag
   }
 
+  type Mutation {
+    addActivity(
+      tsStart: String!,
+      tsEnd: String!,
+      tags: [Int]
+    ): Activity!
+    addTag(
+      name: String!,
+      activities: [Int]
+    ): Tag!
+  }
+
   schema {
     query: Query
+    mutation: Mutation
   }
 `;
 

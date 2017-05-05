@@ -20,14 +20,31 @@ const activities = (_, args) => Activity.findAll({});
 const tag = (_, args) => Tag.find({ where: args});
 const tags = (_, args) => Tag.findAll({});
 
+const addActivity = (_, activity) => {
+  return Activity.create(activity).then(({id}) => {
+    return Object.assign({}, activity, {id});
+  })
+};
+
+const addTag = (_, tag) => {
+  return Tag.create(tag).then(({id}) => {
+    return Object.assign({}, tag, {id});
+  })
+};
 
 const resolvers = {
   Query: {
     activity,
     activities,
     tag,
-    tags
+    tags,
   },
+
+  Mutation: {
+    addActivity,
+    addTag,
+  },
+
   Activity: {
     tags(activity) {
       return activity.getTags();

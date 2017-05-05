@@ -37,19 +37,22 @@ const TagModel = db.define('tag', {
 ActivityModel.belongsToMany(TagModel, { through: ActivityTags });
 TagModel.belongsToMany(ActivityModel, { through: ActivityTags });
 
+const Activity = db.models.activity;
+const Tag = db.models.tag;
+
 casual.seed(12345);
 db.drop();
 db.sync({ force: true }).then(() => {
   Promise.all([
-    TagModel.create({ name: 'Tesla Drone Project'}),
-    TagModel.create({ name: 'studying'}),
-    TagModel.create({ name: 'coding'}),
-    TagModel.create({ name: 'designing'}),
+    Tag.create({ name: 'Tesla Drone Project'}),
+    Tag.create({ name: 'studying'}),
+    Tag.create({ name: 'coding'}),
+    Tag.create({ name: 'designing'}),
   ]).then((tags) => {
     _.times(10, () => {
       const t = _.sampleSize(tags, _.random(1, tags.length));
       console.log(tags);
-      ActivityModel.create({
+      Activity.create({
         tsStart: (new Date()).getTime(),
         tsEnd: (new Date()).getTime() + 10000,
       }).then(activity => {
@@ -58,9 +61,6 @@ db.sync({ force: true }).then(() => {
     });
   })
 });
-
-const Activity = db.models.activity;
-const Tag = db.models.tag;
 
 module.exports = {
   Activity,
