@@ -173,3 +173,17 @@ and...lunch.
 
 ## 13:09 - post lunch, back to work
 
+## 13:24
+
+wow. that was amazing.
+sequelize generates methods like `addTag` and `removeTag`
+
+
+## 13:42
+
+and now, to figure out filtering by min/max time.
+
+i just had to add optional arguments to the `activities` Query.
+Then, I modified my resolver so that it checks for those
+arguments. If they exist, add a `where` clause for my
+actual `tsStart` and `tsEnd`

@@ -1,19 +1,3 @@
-// const typeDefinitions = `
-// type President {
-//   name: String
-//   party: String
-//   term: String
-// }
-// type RootQuery {
-//   president(name: String, party: String, term: String): President
-// }
-// schema {
-//   query: RootQuery
-// }
-// `;
-
-// module.exports = [typeDefinitions];
-
 const typeDefinitions = `
   type Activity {
     id: Int!
@@ -29,7 +13,7 @@ const typeDefinitions = `
   }
 
   type Query {
-    activities: [Activity]
+    activities(tsStart: String, tsEnd: String): [Activity]
     activity(id: Int!): Activity
     tags: [Tag]
     tag(id: Int!): Tag

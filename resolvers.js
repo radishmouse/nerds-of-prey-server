@@ -1,14 +1,3 @@
-// const resolveFunctions = {
-//   RootQuery: {
-//     president(_, { name }, ctx) {
-//       const president = new ctx.constructor.President();
-//       return president.findPresident(name);
-//     },
-//   },
-// };
-
-// module.exports = resolveFunctions;
-
 const {
   Activity,
   Tag,
@@ -16,7 +5,21 @@ const {
 
 
 const activity = (_, args) => Activity.find({ where: args});
-const activities = (_, args) => Activity.findAll({});
+const activities = (_, args) => {
+  if (args.tsStart && args.tsEnd) {
+    return Activity.findAll({
+      where: {
+        tsStart: {
+          $gte: args.tsStart
+        },
+        tsEnd: {
+          $lte: args.tsEnd
+        }
+      }
+    });
+  }
+  return Activity.findAll({});
+};
 const tag = (_, args) => Tag.find({ where: args});
 const tags = (_, args) => Tag.findAll({});
 

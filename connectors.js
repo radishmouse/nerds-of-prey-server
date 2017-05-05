@@ -1,19 +1,3 @@
-
-// const PresidentModel = require('./model');
-
-// class President {
-//   constructor() {
-//     this.findPresident = (name) => {
-//       const person = PresidentModel.findOne({ name }, (error, data) => {
-//         return data;
-//       });
-//       return person;
-//     };
-//   }
-// }
-
-// module.exports = { President };
-
 const Sequelize = require('sequelize');
 const casual = require('casual');
 const _ = require('lodash');
