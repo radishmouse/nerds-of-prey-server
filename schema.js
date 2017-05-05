@@ -17,10 +17,10 @@ const typeDefinitions = `
   }
 
   type Query {
-    activities(tsStart: String, tsEnd: String, tagId: Int): [Activity]
     activity(id: Int!): Activity
-    tags: [Tag]
+    activities(tsStart: String, tsEnd: String, tagId: Int): [Activity]
     tag(id: Int!): Tag
+    tags: [Tag]
     totalTimeForTag(tsStart: String, tsEnd: String, tagId: Int): TimeTotal
   }
 

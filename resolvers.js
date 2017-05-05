@@ -3,8 +3,8 @@ const {
   Tag,
 } = require('./connectors');
 
+const activity = (_, args) => Activity.find({ where: args });
 
-const activity = (_, args) => Activity.find({ where: args});
 const activities = (_, {
   tsStart,
   tsEnd,
@@ -35,9 +35,10 @@ const activities = (_, {
   }
 
   return Activity.findAll(whereClause);
-
 };
-const tag = (_, args) => Tag.find({ where: args});
+
+const tag = (_, args) => Tag.find({ where: args });
+
 const tags = (_, args) => Tag.findAll({});
 
 const addActivity = (_, activity) => {
@@ -69,7 +70,6 @@ const addTagToActivity = (_, args) => {
     a.addTag(t);
     return a;
   });
-
 };
 // YAK: change this to a call to .update
 const removeTagFromActivity = (_, args) => {
@@ -80,7 +80,6 @@ const removeTagFromActivity = (_, args) => {
     a.removeTag(t);
     return a;
   });
-  
 };
 
 const totalTimeForTag = (_, args) => {
@@ -88,7 +87,10 @@ const totalTimeForTag = (_, args) => {
     const val = results.reduce((total, {tsStart, tsEnd}) => (
       total + (parseInt(tsEnd, 10) - parseInt(tsStart, 10))
     ), 0);
+    // Not necessary to return a promise:
     // return new Promise((resolve, reject) => resolve(val));
+
+    // Just return a correctly shaped object:
     return {
       total: val
     };
