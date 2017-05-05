@@ -217,3 +217,19 @@ reusing the `activities` function which does all the filtering already.
 huzzah! done.
 the trick was that i needed to return an object conforming to
 the Type i described in the schema as TimeTotal
+
+
+## 15:26
+
+So, let's do this.
+In order to provide stats, let's figure out the timestamps for
+the last 7 days.
+
+## 15:35
+
+need a method that gives me the timestamps, as an array of:
+- 00:00:00
+- 23:59:00
+
+can i use moment?
+can i use the built-in date stuff?
