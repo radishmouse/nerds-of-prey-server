@@ -82,7 +82,7 @@ const removeTagFromActivity = (_, args) => {
   });
 };
 
-const totalTimeForTag = (_, args) => {
+const totalTime = (_, args) => {
   return activities(null, args).then((results) => {
     const val = results.reduce((total, {tsStart, tsEnd}) => (
       total + (parseInt(tsEnd, 10) - parseInt(tsStart, 10))
@@ -103,7 +103,7 @@ const resolvers = {
     activities,
     tag,
     tags,
-    totalTimeForTag,
+    totalTime,
   },
 
   Mutation: {

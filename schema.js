@@ -21,7 +21,7 @@ const typeDefinitions = `
     activities(tsStart: String, tsEnd: String, tagId: Int): [Activity]
     tag(id: Int!): Tag
     tags: [Tag]
-    totalTimeForTag(tsStart: String, tsEnd: String, tagId: Int): TimeTotal
+    totalTime(tsStart: String, tsEnd: String, tagId: Int): TimeTotal
   }
 
   type Mutation {
