@@ -141,3 +141,26 @@ mutation {
   }
 }
 ```
+
+
+## 11:59 - trying to figure out how to pass an array to mutation
+
+I think? this worked:
+
+```
+
+mutation {
+  addTag(name:"bobbing for apples", activities: [1, 2, 3]) {
+    id
+  }
+}
+```
+
+and
+```
+mutation {
+  addActivity(tsStart:"100", tsEnd:"200", tags: [1, 2, 3]) {
+    id
+  }
+}
+```

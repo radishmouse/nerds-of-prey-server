@@ -21,14 +21,20 @@ const tag = (_, args) => Tag.find({ where: args});
 const tags = (_, args) => Tag.findAll({});
 
 const addActivity = (_, activity) => {
-  return Activity.create(activity).then(({id}) => {
-    return Object.assign({}, activity, {id});
+  return Activity.create(activity).then((a) => {
+    if (activity.tags) {
+      a.setTags(activity.tags);
+    }
+    return Object.assign({}, activity, {id: a.id});
   })
 };
 
 const addTag = (_, tag) => {
-  return Tag.create(tag).then(({id}) => {
-    return Object.assign({}, tag, {id});
+  return Tag.create(tag).then((t) => {
+    if (tag.activities) {
+      t.setActivities(tag.activities);
+    }
+    return Object.assign({}, tag, {id: t.id});
   })
 };
 
