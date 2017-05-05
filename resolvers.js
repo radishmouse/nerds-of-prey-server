@@ -60,6 +60,7 @@ const addTag = (_, tag) => {
   })
 };
 
+// YAK: change this to a call to .update
 const addTagToActivity = (_, args) => {
   return Promise.all([
     Activity.findById(args.activityId),
@@ -70,6 +71,7 @@ const addTagToActivity = (_, args) => {
   });
 
 };
+// YAK: change this to a call to .update
 const removeTagFromActivity = (_, args) => {
   return Promise.all([
     Activity.findById(args.activityId),
@@ -81,12 +83,25 @@ const removeTagFromActivity = (_, args) => {
   
 };
 
+const totalTimeForTag = (_, args) => {
+  return activities(null, args).then((results) => {
+    const val = results.reduce((total, {tsStart, tsEnd}) => (
+      total + (parseInt(tsEnd, 10) - parseInt(tsStart, 10))
+    ), 0);
+    // return new Promise((resolve, reject) => resolve(val));
+    return {
+      total: val
+    };
+  })
+};
+
 const resolvers = {
   Query: {
     activity,
     activities,
     tag,
     tags,
+    totalTimeForTag,
   },
 
   Mutation: {

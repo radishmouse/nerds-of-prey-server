@@ -208,3 +208,12 @@ I feel like there's a way to write that as a where clause
 
 it's [here](http://docs.sequelizejs.com/en/v3/docs/querying/#relations-associations)
 
+## 14:25 - tallying the time for a thing
+
+reusing the `activities` function which does all the filtering already.
+
+## 14:40
+
+huzzah! done.
+the trick was that i needed to return an object conforming to
+the Type i described in the schema as TimeTotal

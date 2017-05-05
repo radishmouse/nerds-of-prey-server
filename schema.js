@@ -12,11 +12,16 @@ const typeDefinitions = `
     activities: [Activity]
   }
 
+  type TimeTotal {
+    total: String!
+  }
+
   type Query {
     activities(tsStart: String, tsEnd: String, tagId: Int): [Activity]
     activity(id: Int!): Activity
     tags: [Tag]
     tag(id: Int!): Tag
+    totalTimeForTag(tsStart: String, tsEnd: String, tagId: Int): TimeTotal
   }
 
   type Mutation {
