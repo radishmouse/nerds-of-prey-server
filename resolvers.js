@@ -9,14 +9,15 @@
 
 // module.exports = resolveFunctions;
 
+const {
+  Activity,
+  Tag,
+} = require('./connectors');
+
 const resolvers = {
   Query: {
-    activity(root, args) {
-      return {
-        id: 1,
-        tsStart: 100,
-        tsEnd: 200
-      };
+    activity(_, args) {
+      return Activity.find();
     }
   }
 }

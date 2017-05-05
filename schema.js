@@ -17,8 +17,9 @@
 const typeDefinitions = `
   type Activity {
     id: Int
-    tsStart: Int
-    tsEnd: Int
+    tsStart: String
+    tsEnd: String
+    tags: [Tag]
   }
 
   type Tag {
