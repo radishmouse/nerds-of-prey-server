@@ -17,7 +17,7 @@ const {
 const resolvers = {
   Query: {
     activity(_, args) {
-      return Activity.find();
+      return Activity.find({ where: args});
     }
   },
   Activity: {
