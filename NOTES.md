@@ -23,7 +23,8 @@ so far, the best one:
 - why is the schema type necessary?
   - i understand the type, but...
   - it seems only to refer to the root query...
-
+- what's a schema?
+  - a schema is an array of strings. the strings contain type definitions
 
 
 

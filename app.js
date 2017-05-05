@@ -16,9 +16,9 @@ Mongoose.connect('mongodb://localhost/apollo', (err) => {
   return true;
 });
 
-const seed = require('./seed');
+// const seed = require('./seed');
 
-seed();
+// seed();
 
 const Schema = require('./schema');
 const Resolvers = require('./resolvers');
