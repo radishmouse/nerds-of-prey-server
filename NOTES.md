@@ -187,3 +187,24 @@ i just had to add optional arguments to the `activities` Query.
 Then, I modified my resolver so that it checks for those
 arguments. If they exist, add a `where` clause for my
 actual `tsStart` and `tsEnd`
+
+## 13:50 - what's my next feature?
+
+it's activities by tag.
+and that's tricky, because i can't seem to figure out how
+to do a `findAll` and filter by the tabs for that activity.
+
+So, I could try this:
+
+- if there is a tagId supplied, first get that tag.
+- then, return its association of activities.
+
+That works, except I can't also filter by timestamp.
+That's kind of important.
+
+I feel like there's a way to write that as a where clause
+
+### 14:09 - found it.
+
+it's [here](http://docs.sequelizejs.com/en/v3/docs/querying/#relations-associations)
+

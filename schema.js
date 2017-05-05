@@ -13,7 +13,7 @@ const typeDefinitions = `
   }
 
   type Query {
-    activities(tsStart: String, tsEnd: String): [Activity]
+    activities(tsStart: String, tsEnd: String, tagId: Int): [Activity]
     activity(id: Int!): Activity
     tags: [Tag]
     tag(id: Int!): Tag

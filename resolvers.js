@@ -5,20 +5,37 @@ const {
 
 
 const activity = (_, args) => Activity.find({ where: args});
-const activities = (_, args) => {
-  if (args.tsStart && args.tsEnd) {
-    return Activity.findAll({
+const activities = (_, {
+  tsStart,
+  tsEnd,
+  tagId
+}) => {
+  let whereClause = {};
+  if (tsStart && tsEnd) {
+    whereClause = Object.assign({}, whereClause, {
       where: {
         tsStart: {
-          $gte: args.tsStart
+          $gte: tsStart
         },
         tsEnd: {
-          $lte: args.tsEnd
+          $lte: tsEnd
         }
       }
     });
   }
-  return Activity.findAll({});
+  if (tagId) {
+    whereClause = Object.assign({}, whereClause, {
+      include: [{
+        model: Tag,
+        where: {
+          id: tagId
+        }
+      }]
+    });
+  }
+
+  return Activity.findAll(whereClause);
+
 };
 const tag = (_, args) => Tag.find({ where: args});
 const tags = (_, args) => Tag.findAll({});
