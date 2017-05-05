@@ -19,6 +19,16 @@ const resolvers = {
     activity(_, args) {
       return Activity.find();
     }
+  },
+  Activity: {
+    tags(activity) {
+      return activity.getTags();
+    }
+  },
+  Tag: {
+    activities(tag) {
+      return tag.getActivities();
+    }
   }
 }
 

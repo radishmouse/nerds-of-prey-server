@@ -25,6 +25,7 @@ const typeDefinitions = `
   type Tag {
     id: Int
     name: String
+    activities: [Activity]
   }
 
   type Query {
