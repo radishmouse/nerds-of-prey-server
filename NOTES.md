@@ -72,3 +72,14 @@ coupled with resolver functions.
 
 then, the apollo server can use that executable schema with the
 stuff you defined as the glue code (connector.js)
+
+
+
+
+
+---
+
+
+# define the schema
+
+in `schema.js`, add your typeDefinitions
