@@ -29,6 +29,8 @@ const addActivity = (_, activity) => {
   })
 };
 
+// probably not necessary to be able to create a tag
+// with activities already set, but whatevs.
 const addTag = (_, tag) => {
   return Tag.create(tag).then((t) => {
     if (tag.activities) {
