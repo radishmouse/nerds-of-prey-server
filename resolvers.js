@@ -40,6 +40,27 @@ const addTag = (_, tag) => {
   })
 };
 
+const addTagToActivity = (_, args) => {
+  return Promise.all([
+    Activity.findById(args.activityId),
+    Tag.findById(args.tagId),
+  ]).then(([a, t]) => {
+    a.addTag(t);
+    return a;
+  });
+
+};
+const removeTagFromActivity = (_, args) => {
+  return Promise.all([
+    Activity.findById(args.activityId),
+    Tag.findById(args.tagId),
+  ]).then(([a, t]) => {
+    a.removeTag(t);
+    return a;
+  });
+  
+};
+
 const resolvers = {
   Query: {
     activity,
@@ -51,6 +72,8 @@ const resolvers = {
   Mutation: {
     addActivity,
     addTag,
+    addTagToActivity,
+    removeTagFromActivity,
   },
 
   Activity: {

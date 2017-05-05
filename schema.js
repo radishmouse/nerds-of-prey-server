@@ -45,6 +45,8 @@ const typeDefinitions = `
       name: String!,
       activities: [Int]
     ): Tag!
+    addTagToActivity(tagId: Int!, activityId: Int!): Activity!
+    removeTagFromActivity(tagId: Int!, activityId: Int!): Activity!
   }
 
   schema {
