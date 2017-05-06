@@ -233,3 +233,14 @@ need a method that gives me the timestamps, as an array of:
 
 can i use moment?
 can i use the built-in date stuff?
+
+
+---
+
+# misc
+
+- [https://dev-blog.apollodata.com/tutorial-building-a-graphql-server-cddaa023c035](https://dev-blog.apollodata.com/tutorial-building-a-graphql-server-cddaa023c035)
+- [https://dev-blog.apollodata.com/react-graphql-tutorial-part-2-server-99d0528c7928](https://dev-blog.apollodata.com/react-graphql-tutorial-part-2-server-99d0528c7928)
+- [https://dev-blog.apollodata.com/react-graphql-tutorial-mutations-764d7ec23c15](https://dev-blog.apollodata.com/react-graphql-tutorial-mutations-764d7ec23c15)
+- [https://github.com/apollographql/apollo-tutorial-kit](https://github.com/apollographql/apollo-tutorial-kit)
+- [https://github.com/rse/graphql-tutorial](https://github.com/rse/graphql-tutorial)
