@@ -19,13 +19,11 @@ const {
 // });
 
 // const seed = require('./seed');
-
 // seed();
 
 const Schema = require('./schema');
 const Resolvers = require('./resolvers');
 const Connectors = require('./connectors');
-// const Mocks = require('./mocks');
 
 const executableSchema = makeExecutableSchema({
   typeDefs: Schema,
