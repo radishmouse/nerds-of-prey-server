@@ -23,7 +23,7 @@ const typeDefinitions = `
 
   type Query {
     activity(id: Int!): Activity
-    activities(tsStart: String, tsEnd: String, tagId: Int): [Activity]
+    activities(isBillable: Boolean, tsStart: String, tsEnd: String, tagId: Int): [Activity]
     tag(id: Int!): Tag
     tags: [Tag]
     totalTime(tsStart: String, tsEnd: String, tagId: Int): TimeTotal

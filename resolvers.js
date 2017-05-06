@@ -10,9 +10,15 @@ const activity = (_, args) => Activity.find({ where: args });
 const activities = (_, {
   tsStart,
   tsEnd,
-  tagId
+  tagId,
+  isBillable,
 }) => {
-  let whereClause = {};
+  let whereClause = {
+    where: {
+      isBillable,
+    }
+  };
+
   if (tsStart && tsEnd) {
     whereClause = Object.assign({}, whereClause, {
       where: {
