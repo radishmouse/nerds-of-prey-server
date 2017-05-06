@@ -5,9 +5,16 @@ const typeDefinitions = `
     tsStart: String!
     tsEnd: String!
     tags: [Tag]
+    clients: [Client]
   }
 
   type Tag {
+    id: Int!
+    name: String!
+    activities: [Activity]
+  }
+
+  type Client {
     id: Int!
     name: String!
     activities: [Activity]
@@ -23,11 +30,13 @@ const typeDefinitions = `
 
   type Query {
     activity(id: Int!): Activity
-    activities(isBillable: Boolean, tsStart: String, tsEnd: String, tagId: Int): [Activity]
+    activities(isBillable: Boolean, tsStart: String, tsEnd: String, tagId: Int, clientId: Int): [Activity]
     tag(id: Int!): Tag
     tags: [Tag]
-    totalTime(tsStart: String, tsEnd: String, tagId: Int, isBillable: Boolean): TimeTotal
-    totalTimeForDays(howMany: Int, isBillable: Boolean=true): TimeTotalArray
+    client(id: Int!): Client
+    clients: [Client]
+    totalTime(tsStart: String, tsEnd: String, tagId: Int, clientId: Int, isBillable: Boolean): TimeTotal
+    totalTimeForDays(howMany: Int, clientId: Int, isBillable: Boolean=true): TimeTotalArray
   }
 
   type Mutation {
@@ -40,8 +49,14 @@ const typeDefinitions = `
       name: String!,
       activities: [Int]
     ): Tag!
+    addClient(
+      name: String!,
+      activities: [Int]
+    ): Client!
     addTagToActivity(tagId: Int!, activityId: Int!): Activity!
+    addClientToActivity(clientId: Int!, activityId: Int!): Activity!
     removeTagFromActivity(tagId: Int!, activityId: Int!): Activity!
+    removeClientFromActivity(clientId: Int!, activityId: Int!): Activity!
   }
 
   schema {

@@ -1,6 +1,7 @@
 const {
   Activity,
   Tag,
+  Client,
 } = require('./connectors');
 
 const {getBoundingTimestamps} = require('./utils');
@@ -12,9 +13,11 @@ const activities = (_, {
   tsEnd,
   tagId,
   isBillable,
+  clientId,
 }) => {
   let filter = {
-    where: {}
+    where: {},
+    include: [],
   }
   if (typeof isBillable !== 'undefined') {
     filter.where = Object.assign({}, filter.where, {
@@ -33,15 +36,26 @@ const activities = (_, {
     });
   }
   if (tagId) {
-    filter = Object.assign({}, filter, {
-      include: [{
+    filter.include = filter.include.concat( 
+      [{
         model: Tag,
         where: {
           id: tagId
         }
       }]
-    });
+    );
   }
+  if (clientId) {
+    filter.include = filter.include.concat( 
+      [{
+        model: Client,
+        where: {
+          id: clientId
+        }
+      }]
+    );
+  }
+
 
   return Activity.findAll(filter);
 };
@@ -49,6 +63,10 @@ const activities = (_, {
 const tag = (_, args) => Tag.find({ where: args });
 
 const tags = (_, args) => Tag.findAll({});
+
+const client = (_, args) => Client.find({ where: args });
+
+const clients = (_, args) => Client.findAll({});
 
 const addActivity = (_, activity) => {
   return Activity.create(activity).then((a) => {
@@ -91,6 +109,38 @@ const removeTagFromActivity = (_, args) => {
   });
 };
 
+// probably not necessary to be able to create a tag
+// with activities already set, but whatevs.
+const addClient = (_, client) => {
+  return Client.create(client).then((c) => {
+    if (client.activities) {
+      c.setActivities(client.activities);
+    }
+    return Object.assign({}, client, {id: c.id});
+  })
+};
+
+// YAK: change this to a call to .update
+const addClientToActivity = (_, args) => {
+  return Promise.all([
+    Activity.findById(args.activityId),
+    Client.findById(args.clientId),
+  ]).then(([a, c]) => {
+    a.addTag(c);
+    return a;
+  });
+};
+// YAK: change this to a call to .update
+const removeClientFromActivity = (_, args) => {
+  return Promise.all([
+    Activity.findById(args.activityId),
+    Client.findById(args.clientId),
+  ]).then(([a, c]) => {
+    a.removeTag(c);
+    return a;
+  });
+};
+
 const totalTime = (_, args) => {
   return activities(null, args).then((results) => {
     const val = results.reduce((total, {tsStart, tsEnd}) => (
@@ -108,7 +158,7 @@ const totalTime = (_, args) => {
 
 const totalTimeForDays = (_, args) => {
   // should return an array of totals.
-  const {howMany, isBillable} = args;
+  const {howMany, isBillable, clientId} = args;
   const timestampArray = getBoundingTimestamps(howMany);
 
 
@@ -117,6 +167,7 @@ const totalTimeForDays = (_, args) => {
       tsStart,
       tsEnd,
       isBillable,
+      clientId,
     });
   })).then((vals) => {
     return {
@@ -131,6 +182,8 @@ const resolvers = {
     activities,
     tag,
     tags,
+    client,
+    clients,
     totalTime,
     totalTimeForDays,
   },
@@ -140,16 +193,27 @@ const resolvers = {
     addTag,
     addTagToActivity,
     removeTagFromActivity,
+    addClient,
+    addClientToActivity,
+    removeClientFromActivity,
   },
 
   Activity: {
     tags(activity) {
       return activity.getTags();
+    },
+    clients(activity) {
+      return activity.getClients();
     }
   },
   Tag: {
     activities(tag) {
       return tag.getActivities();
+    }
+  },
+  Client: {
+    activities(client) {
+      return client.getActivities();
     }
   }
 }
