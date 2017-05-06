@@ -1,6 +1,7 @@
 const typeDefinitions = `
   type Activity {
     id: Int!
+    isBillable: Boolean!
     tsStart: String!
     tsEnd: String!
     tags: [Tag]
