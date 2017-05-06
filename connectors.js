@@ -39,19 +39,27 @@ db.drop();
 db.sync({ force: true }).then(() => {
 
   Promise.all([
-    Client.create({ name: 'Apple'}),
-    Client.create({ name: 'Google'}),
-    Client.create({ name: 'Area 51'}),
+    Client.create({ name: 'humrun'}),
+    Client.create({ name: 'rollins'}),
+    Client.create({ name: 'apple gsx'}),
+    Client.create({ name: 'bmw'}),
+    Client.create({ name: 'turner'}),
+    Client.create({ name: 'ge'}),
+    Client.create({ name: 'home depot'}),
+    Client.create({ name: 'collosseum'}),
   ]).then((clients) => {
     Promise.all([
-      Tag.create({ name: 'studying'}),
+      Tag.create({ name: 'reading'}),
       Tag.create({ name: 'coding'}),
+      Tag.create({ name: 'meeting'}),
       Tag.create({ name: 'designing'}),
+      Tag.create({ name: 'pairing'}),
+      Tag.create({ name: 'meditating'}),
     ]).then((tags) => {
       // const clients = assoc.slice(4, assoc.length);
       _.times(10, (i) => {
-        const t = _.sampleSize(tags, _.random(1, tags.length));
-        const c = _.sampleSize(clients, _.random(1, clients.length));
+        const t = _.sample(tags);
+        const c = _.sample(clients);
         Activity.create({
           tsStart: (new Date()).getTime(),
           tsEnd: (new Date()).getTime() + 10000,

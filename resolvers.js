@@ -169,12 +169,12 @@ const totalTimeForDays = (_, args) => {
     return totalTime(null, {
       tsStart,
       tsEnd,
-      isBillable,
+      // isBillable,
       clientId,
     });
   })).then((vals) => {
     return {
-      totals: vals.map((val) => val.total)
+      totals: (vals.map((val) => val.total)).reverse()
     };
   })
 };
