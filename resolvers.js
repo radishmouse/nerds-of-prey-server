@@ -13,26 +13,27 @@ const activities = (_, {
   tagId,
   isBillable,
 }) => {
-  let whereClause = {
-    where: {
+  let filter = {
+    where: {}
+  }
+  if (typeof isBillable !== 'undefined') {
+    filter.where = Object.assign({}, filter.where, {
       isBillable,
-    }
-  };
+    });
+  }
 
   if (tsStart && tsEnd) {
-    whereClause = Object.assign({}, whereClause, {
-      where: {
-        tsStart: {
-          $gte: tsStart
-        },
-        tsEnd: {
-          $lte: tsEnd
-        }
+    filter.where = Object.assign({}, filter.where, {
+      tsStart: {
+        $gte: tsStart
+      },
+      tsEnd: {
+        $lte: tsEnd
       }
     });
   }
   if (tagId) {
-    whereClause = Object.assign({}, whereClause, {
+    filter = Object.assign({}, filter, {
       include: [{
         model: Tag,
         where: {
@@ -42,7 +43,7 @@ const activities = (_, {
     });
   }
 
-  return Activity.findAll(whereClause);
+  return Activity.findAll(filter);
 };
 
 const tag = (_, args) => Tag.find({ where: args });
@@ -107,13 +108,15 @@ const totalTime = (_, args) => {
 
 const totalTimeForDays = (_, args) => {
   // should return an array of totals.
-  const {howMany} = args;
+  const {howMany, isBillable} = args;
   const timestampArray = getBoundingTimestamps(howMany);
+
 
   return Promise.all(timestampArray.map(([tsStart, tsEnd]) => {
     return totalTime(null, {
       tsStart,
-      tsEnd
+      tsEnd,
+      isBillable,
     });
   })).then((vals) => {
     return {

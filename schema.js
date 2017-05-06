@@ -26,8 +26,8 @@ const typeDefinitions = `
     activities(isBillable: Boolean, tsStart: String, tsEnd: String, tagId: Int): [Activity]
     tag(id: Int!): Tag
     tags: [Tag]
-    totalTime(tsStart: String, tsEnd: String, tagId: Int): TimeTotal
-    totalTimeForDays(howMany: Int): TimeTotalArray
+    totalTime(tsStart: String, tsEnd: String, tagId: Int, isBillable: Boolean): TimeTotal
+    totalTimeForDays(howMany: Int, isBillable: Boolean=true): TimeTotalArray
   }
 
   type Mutation {
