@@ -73,6 +73,9 @@ const addActivity = (_, activity) => {
     if (activity.tags) {
       a.setTags(activity.tags);
     }
+    if (activity.clientId) {
+      a.setClients([activity.clientId]);
+    }
     return Object.assign({}, activity, {id: a.id});
   })
 };
@@ -126,7 +129,7 @@ const addClientToActivity = (_, args) => {
     Activity.findById(args.activityId),
     Client.findById(args.clientId),
   ]).then(([a, c]) => {
-    a.addTag(c);
+    a.addClient(c);
     return a;
   });
 };
@@ -136,7 +139,7 @@ const removeClientFromActivity = (_, args) => {
     Activity.findById(args.activityId),
     Client.findById(args.clientId),
   ]).then(([a, c]) => {
-    a.removeTag(c);
+    a.removeClient(c);
     return a;
   });
 };

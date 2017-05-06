@@ -43,7 +43,8 @@ const typeDefinitions = `
     addActivity(
       tsStart: String!,
       tsEnd: String!,
-      tags: [Int]
+      clientId: Int,
+      tags: [Int],
     ): Activity!
     addTag(
       name: String!,
