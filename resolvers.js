@@ -110,7 +110,6 @@ const totalTimeForDays = (_, args) => {
       tsEnd
     });
   })).then((vals) => {
-
     return {
       totals: vals.map((val) => val.total)
     };
