@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const casual = require('casual');
 const _ = require('lodash');
+const moment = require('moment');
 
 const db = new Sequelize('peak', null, null, {
   host: 'localhost',
@@ -34,6 +35,30 @@ const Activity = db.models.activity;
 const Tag = db.models.tag;
 const Client = db.models.client;
 
+function getRandomInt(min=0, max=60) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+const randomDaysAgo = () => (
+  _.sample([0, 1, 2, 3, 4, 5, 6, 7])
+)
+
+const randomHourOfDay = () => getRandomInt(7, 20);
+const randomMinutes = () => getRandomInt(0, 60);
+const randomDurationMinutes = () => getRandomInt(0, 30);
+const randomDurationMS = () => randomDurationMinutes() * 60 * 1000;
+
+const genRandomStartTime = () => {
+  let time = moment();
+  time.subtract(randomDaysAgo(), 'd');
+  time.hour(randomHourOfDay());
+  time.minutes(randomMinutes());
+  return time;
+}
+
+
 casual.seed(12345);
 db.drop();
 db.sync({ force: true }).then(() => {
@@ -57,13 +82,14 @@ db.sync({ force: true }).then(() => {
       Tag.create({ name: 'meditating'}),
     ]).then((tags) => {
       // const clients = assoc.slice(4, assoc.length);
-      _.times(10, (i) => {
+      _.times(getRandomInt(10, 30), (i) => {
         const t = _.sample(tags);
         const c = _.sample(clients);
+        const start = genRandomStartTime().valueOf();
         Activity.create({
-          tsStart: (new Date()).getTime(),
-          tsEnd: (new Date()).getTime() + 10000,
-          isBillable: i % 2 == 0,
+          tsStart: start,
+          tsEnd: start + randomDurationMS(),
+          isBillable: _.sample([true, false]),
         }).then(activity => {
           activity.setTags(t);
           activity.setClients(c);
